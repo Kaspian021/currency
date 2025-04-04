@@ -1,6 +1,6 @@
-# teravell_app
+# currency_app
 
-A new Flutter project.
+A new Flutter project in currency golden mini project more for testing.
 
 ## Getting Started
 
