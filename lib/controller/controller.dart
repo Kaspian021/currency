@@ -1,7 +1,8 @@
+import 'package:currency/Model/currency_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teravell_app/Model/Currency_model.dart';
+
 
 class Controller extends GetxController {
   RxList<CurrencyModel> listData = RxList();
@@ -21,9 +22,10 @@ class Controller extends GetxController {
           listData.add(CurrencyModel.fromJson(element));
         });
       }
-      
+      Get.snackbar('بروز رسانی انجام شد', 'تمامی از ها به روز شدند !!',backgroundColor: Colors.greenAccent);
     } catch (e) {
       debugPrint('error: $e');
+      Get.snackbar('بروز رسانی انجام نشد', ' مشکل اینترنت!!',backgroundColor: Colors.red);
     }
     loading.value = false;
     

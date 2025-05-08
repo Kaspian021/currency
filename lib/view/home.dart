@@ -1,9 +1,10 @@
+import 'package:currency/Model/currency_model.dart';
+import 'package:currency/controller/controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:teravell_app/Model/Currency_model.dart';
-import 'package:teravell_app/controller/controller.dart';
+
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -103,7 +104,7 @@ class Home extends StatelessWidget {
                           onPressed: () {
                             controller.listData.clear();
                             controller.getMthod();
-                            Get.snackbar('بروز رسانی انجام شد', 'تمامی از ها به روز شدند !!',backgroundColor: Colors.greenAccent);
+                            
                           },
                           label: Padding(
                             padding: const EdgeInsets.all(8.0),
