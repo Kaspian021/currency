@@ -4,6 +4,8 @@
 
 class CurrencyModel {
 
+  
+
   String? id;
   double? athChangePercentage;
   num? currentPrice;
@@ -41,7 +43,7 @@ class CurrencyModel {
     "shiba-inu",
     "polkadot",
     "litecoin",
-    "matic-network",
+    // "matic-network",
     // "uniswap",
     // "chainlink",
     // "cosmos",

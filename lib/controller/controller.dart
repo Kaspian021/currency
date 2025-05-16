@@ -31,13 +31,7 @@ class Controller extends GetxController {
     
   }
 
-  Future<bool> positionalCurrency(double position) async {
-    if (position >= 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
 
   @override
   void onInit() {

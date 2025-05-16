@@ -6,10 +6,42 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   final controller = Get.put(Controller());
+
+
+  late AnimationController animationController;
+  late Animation<Offset> animationTitle;
+  late Animation<Offset> animationDescription;
+  late Animation<Offset> animationIconoffset;
+
+
+
+  @override
+  void initState() {
+
+    animationController = AnimationController(vsync: this,duration: const Duration(milliseconds: 800));
+    animationTitle = Tween<Offset>(begin: const Offset(-1, 0),end: const Offset(0, 0) ).animate(animationController);
+    animationDescription = Tween<Offset>(begin: const Offset(1, 0),end: const Offset(0, 0) ).animate(animationController);
+    animationIconoffset = Tween<Offset>(begin: const Offset(1, -1),end: const Offset(0, 0) ).animate(animationController);
+   
+    
+    animationController.forward();
+
+    // animationIconoffset.addStatusListener((status){
+    //   if(status.isCompleted){
+    //     animationController.reverse();
+    //   }
+    // });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,31 +75,38 @@ class Home extends StatelessWidget {
                   children: [
                     Image.asset('assets/images/752675.png'),
                     const SizedBox(width: 8),
-                    Text('نرخ ارز آزاد چیست؟ ', style: textStyle.bodyLarge),
+                    SlideTransition(position: animationTitle,
+                    child: Text('نرخ ارز آزاد چیست؟ ', style: textStyle.bodyLarge)),
                   ],
                 ),
                 const SizedBox(height: 12),
                 //dict
-                Text(
-                  ' نرخ ارزها در معاملات نقدی و رایج روزانه است معاملات نقدی معاملاتی هستند که خریدار و فروشنده به محض انجام معامله، ارز و ریال را با هم تبادل می نمایند.',
-                  style: textStyle.bodySmall,
+                SlideTransition(
+                  position: animationDescription,
+                  child: Text(
+                    ' نرخ ارزها در معاملات نقدی و رایج روزانه است معاملات نقدی معاملاتی هستند که خریدار و فروشنده به محض انجام معامله، ارز و ریال را با هم تبادل می نمایند.',
+                    style: textStyle.bodySmall,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 //title_List_container
-                Container(
-                  width: double.infinity,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(1000),
-                    color: const Color.fromARGB(255, 130, 130, 130),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('نام آزاد ارز', style: textStyle.headlineSmall),
-                      Text('قیمت ', style: textStyle.headlineSmall),
-                      Text('تغییر', style: textStyle.headlineSmall),
-                    ],
+                SlideTransition(
+                  position: animationDescription,
+                  child: Container(
+                    width: double.infinity,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(1000),
+                      color: const Color.fromARGB(255, 130, 130, 130),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text('نام آزاد ارز', style: textStyle.headlineSmall),
+                        Text('قیمت ', style: textStyle.headlineSmall),
+                        Text('تغییر', style: textStyle.headlineSmall),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -83,7 +122,7 @@ class Home extends StatelessWidget {
                         itemBuilder: (context, index) {
                           var item = controller.listData[index];
 
-                          return itemList(item, textStyle);
+                          return itemList(item, textStyle,index);
                         },
                       ),
                     )
@@ -143,7 +182,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  Padding itemList(CurrencyModel item, TextTheme textStyle) {
+  Padding itemList(CurrencyModel item, TextTheme textStyle,index) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
       child: Container(
@@ -156,13 +195,16 @@ class Home extends StatelessWidget {
             
           ],
           
+          
           image: DecorationImage(
-            image: NetworkImage(item.image!),
+            image: NetworkImage(item.image!,scale: 2),
             fit: BoxFit.contain,
-            alignment: Alignment.centerRight
+            alignment: Alignment.centerRight,
+            
+            
           ),
           shape: BoxShape.rectangle,
-
+      
           border: Border.all(color: Colors.blue,width: 2,style: BorderStyle.solid)
         ),
         child: Row(
